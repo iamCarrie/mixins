@@ -1,0 +1,155 @@
+@mixin size($pos,$px...){
+    $n:length($px);
+    $i:1;
+    $rem: ();
+
+    @while $i <= $n{
+        $_px : (nth($px, $i)); 
+        $rem: append($rem,($_px /$setFs) + rem);
+        $i: $i+1;
+    }
+
+
+    @if $pos == pt{
+        padding-top: $rem;
+    }
+    @else if $pos == pb{
+        padding-bottom: $rem;
+    }
+    @else if $pos == pl{
+        padding-left: $rem;
+    }    
+    @else if $pos == pr{
+        padding-right: $rem;
+    } 
+    @else if $pos == pa{
+        padding: $rem;
+    } 
+    @else if $pos == mt{
+        margin-top:$rem;
+    }
+    @else if $pos == mb{
+        margin-bottom:$rem;
+    }
+    @else if $pos == ml{
+        margin-left:$rem;
+    }
+    @else if $pos == mr{
+        margin-right: $rem;
+    }
+    @else if $pos == ma{
+        margin: $rem;
+    }
+    @else if $pos == auto{
+        @if $n == 2{
+            margin: (nth($px,1))/$setFs+rem auto (nth($px,2))/$setFs+rem;
+        }@else{
+            margin: (nth($px,1))/$setFs+rem auto;
+        }
+    }
+    @else if $pos == t{
+        top: $rem;
+    }
+    @else if $pos == l{
+        left: $rem;
+    }
+    @else if $pos == r{
+        right: $rem;
+    }
+    @else if $pos == b{
+        bottom: $rem;
+    }
+    @else if $pos == fs{
+        font-size: $rem;
+    }
+    @else if $pos == h{
+        height: $rem;
+    }
+    @else if $pos == w{
+        width: $rem;
+    }
+    @else if $pos == wh{
+        @if $n == 2{
+            width: (nth($px,1))/$setFs+rem;;
+            height: (nth($px,2))/$setFs+rem;;
+        }@else{
+            width: (nth($px,1))/$setFs+rem;;
+            height: (nth($px,1))/$setFs+rem;;
+        }
+    }
+    /* -- 與 body 比例脫離 其他單位 --*/
+    @else if $pos == wp{
+        width: (nth($px,1))+%;
+    }
+    @else if $pos == hp{
+        height: (nth($px,1))+%;
+    }
+    @else if $pos == whp{
+        @if $n == 2{
+            width: (nth($px,1))+%;
+            height: (nth($px,2))+%;
+        }@else{
+            width: (nth($px,1))+%;
+            height: (nth($px,1))+%;
+        }
+    }
+}
+
+@mixin center($pos,$px) {
+    @if $pos == ver{
+        top: 50%;
+        margin-top: -($px/2);
+    }@else if $pos == hor{
+        left: 50%;
+        margin-left: -($px/2);
+    }
+}
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+@mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false){
+    @include pseudo($pos: $position);
+    width: 0;
+    height: 0;
+    @if $round {
+        border-radius: 3px;
+    }
+    @if $direction == down {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+        margin-top: 0 - round( $size / 2.5 );
+    } @else if $direction == up {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+        margin-bottom: 0 - round( $size / 2.5 );
+    } @else if $direction == right {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+        margin-right: -$size;
+    } @else if  $direction == left {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+        margin-left: -$size;
+    }
+}
+
+@mixin ovr($bg,$time) {
+    @include pseudo(); 
+    @include size(whp,100);
+    @include tran($time,0);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-image: url('../images/' +  $bg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+}
+

@@ -1,0 +1,40 @@
+
+/** mixin ani **/
+
+@mixin tran($sec, $d) {
+  -webkit-transition: all $sec+s ease-Out;
+  -moz-transition: all $sec+s ease-Out;
+  -o-transition: all $sec+s ease-Out;
+  transition: all $sec+s ease-Out;
+  -webkit-transition-delay: $d+s;
+  transition-delay: $d+s;
+}
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin ani($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+
+
+
