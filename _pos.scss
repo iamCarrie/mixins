@@ -110,7 +110,7 @@
     position: $pos;
 }
 
-@mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false){
+@mixin triangle($direction,$color, $size: 6px, $position: absolute, $round: false){
     @include pseudo($pos: $position);
     width: 0;
     height: 0;
@@ -138,6 +138,23 @@
         border-right: $size solid $color;
         margin-left: -$size;
     }
+    @else if  $direction == downleft {
+       	border-bottom: $size solid $color;
+	    border-right: $size solid transparent;
+    }
+    @else if  $direction == downright {
+       	border-bottom: $size solid $color;
+	    border-right: $size solid transparent;
+    }
+    @else if  $direction == upright {
+        border-top: $size solid $color;
+	    border-left: $size solid transparent;
+    }
+    @else if  $direction == upleft {
+        border-top: $size solid $color;
+	    border-right: $size solid transparent;
+    }
+    
 }
 
 @mixin ovr($bg,$time) {
@@ -153,3 +170,6 @@
     background-size: contain;
 }
 
+@function percent($n,$w){
+    @return ($n/$w)*100 + %;
+}
